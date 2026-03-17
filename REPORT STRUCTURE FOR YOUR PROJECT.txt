@@ -1,0 +1,714 @@
+REPORT STRUCTURE FOR YOUR PROJECT
+Title: House Price Prediction and Deployment Using Docker
+1️⃣ Introduction
+What to Write:
+
+Brief introduction to Machine Learning
+
+What is Regression?
+
+Why House Price Prediction?
+
+Importance of Model Deployment
+
+Example (Simple):
+
+Machine Learning helps computers learn patterns from data.
+In this project, we built a Linear Regression model to predict house prices based on area.
+The model was deployed using Flask and containerized using Docker.
+
+2️⃣ Problem Statement
+
+To develop a machine learning model that predicts house prices based on square footage and deploy the model as a web application using Flask and Docker.
+
+3️⃣ Objectives
+
+Build ML regression model
+
+Save trained model
+
+Develop Flask web application
+
+Containerize application using Docker
+
+Run application inside Docker container
+
+4️⃣ Tools & Technologies Used
+Tool	Purpose
+Python	Programming language
+Pandas	Data handling
+Scikit-learn	ML model
+Flask	Web application
+Docker	Containerization
+VS Code	Development
+WSL2	Linux backend
+5️⃣ Dataset Description
+
+Source: Kaggle
+
+Number of records
+
+Selected Feature: Square_Feet
+
+Target Variable: Price
+
+Explain why only one feature was selected:
+
+To simplify learning and focus on deployment.
+
+6️⃣ Methodology
+
+Explain the workflow step-by-step:
+
+Step 1: Data Loading
+
+Used pandas to read CSV file.
+
+Step 2: Feature Selection
+
+Selected Square_Feet as input.
+
+Step 3: Model Training
+
+Used Linear Regression from sklearn.
+
+Step 4: Model Saving
+
+Saved model as .pkl using pickle.
+
+Step 5: Web Application Development
+
+Built Flask app to:
+
+Take input
+
+Load model
+
+Predict output
+
+Display result
+
+Step 6: Dockerization
+
+Created requirements.txt
+
+Created Dockerfile
+
+Built Docker image
+
+Ran container
+
+7️⃣ System Architecture Diagram (Very Important)
+
+You can draw:
+
+User
+ ↓
+Browser
+ ↓
+Flask Application
+ ↓
+Loaded ML Model (.pkl)
+ ↓
+Prediction
+
+Then show Docker wrapping the entire system.
+
+8️⃣ Docker Implementation Details
+
+Explain:
+
+Dockerfile Components:
+
+FROM python:3.10
+
+WORKDIR
+
+COPY
+
+RUN pip install
+
+EXPOSE
+
+CMD
+
+Commands Used:
+docker build -t house-price-app .
+docker run -p 5000:5000 house-price-app
+
+Explain port mapping:
+
+Local machine port 5000 mapped to container port 5000.
+
+9️⃣ Results
+
+Show:
+
+Screenshot of Flask web app
+
+Screenshot of Docker running
+
+Prediction example
+
+Example:
+
+Input: 2000 sq.ft
+Predicted Price: ₹ 22,50,000 (example)
+
+🔟 Challenges Faced
+
+You can mention:
+
+Docker installation issues
+
+WSL update issue
+
+Dockerfile naming issue
+
+Port binding configuration
+
+This shows practical learning.
+
+1️⃣1️⃣ Conclusion
+
+The project successfully demonstrates end-to-end ML workflow including training, deployment, and containerization. Docker ensures portability and consistent execution across environments.
+
+1️⃣2️⃣ Future Scope
+
+Add multiple features
+
+Improve UI design
+
+Deploy to cloud (AWS / GCP)
+
+Add database integration
+
+Use advanced ML models
+
+📎 Appendix (Optional)
+
+Include:
+
+Dockerfile code
+
+Flask code
+
+requirements.txt
+
+Model training snippet
+
+🎯 FINAL REPORT FLOW SUMMARY
+
+Introduction
+Problem
+Objectives
+Tools
+Dataset
+Methodology
+Architecture
+Docker Implementation
+Results
+Challenges
+Conclusion
+Future Scope
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LAB MANUAL
+Dockerizing the House Price ML Application
+🎯 Aim
+
+To containerize a Flask-based Machine Learning application using Docker and run it successfully inside a Docker container.
+
+🧰 Software Requirements
+
+Windows 10 / 11 (64-bit)
+
+Python installed
+
+Flask project ready
+
+Docker Desktop installed
+
+WSL2 enabled
+
+📁 Project Structure
+
+Before starting Docker, ensure your project folder looks like this:
+
+house_price_project/
+│
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── model/
+│   └── house_price_model.pkl
+├── templates/
+│   └── index.html
+└── static/
+    └── style.css
+🧱 STEP 1: Create Dockerfile
+
+Inside the main project folder:
+
+Create a file named:
+
+Dockerfile
+
+⚠️ Important:
+
+File name must be exactly Dockerfile
+
+No .txt
+
+No extension
+
+Must be inside main folder
+
+📝 STEP 2: Add Content to Dockerfile
+
+Paste the following code:
+
+# Use official Python image
+FROM python:3.10
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose Flask port
+EXPOSE 5000
+
+# Start application
+CMD ["python", "app.py"]
+🔄 STEP 3: Update app.py (Very Important)
+
+Change this line:
+
+app.run(debug=True)
+
+TO:
+
+app.run(host='0.0.0.0', port=5000)
+Why?
+
+Docker needs 0.0.0.0
+Otherwise, the browser cannot access the app.
+
+🏗 STEP 4: Build Docker Image
+
+Open terminal inside project folder.
+
+Run:
+
+docker build -t house-price-app .
+Explanation:
+
+build → create image
+
+-t house-price-app → name of image
+
+. → current folder
+
+First build may take 2–3 minutes.
+
+If successful, you will see:
+
+Successfully built
+Successfully tagged house-price-app
+▶ STEP 5: Run Docker Container
+
+Now run:
+
+docker run -p 5000:5000 house-price-app
+Explanation:
+
+Left 5000 → your PC
+
+Right 5000 → Docker container
+
+house-price-app → image name
+
+🌐 STEP 6: Open in Browser
+
+Open:
+
+http://localhost:5000
+
+🎉 Your Dockerized ML App is running!
+
+🧠 What Happened?
+
+You:
+
+✔ Created Docker image (blueprint)
+✔ Started Docker container (running app)
+✔ Opened app from browser
+✔ ML prediction works
+✔ Application is now portable
+
+🏗 System Architecture
+Browser
+   ↓
+Docker Container
+   ↓
+Flask App
+   ↓
+Saved ML Model
+   ↓
+Prediction
+⚠️ Common Errors and Solutions
+❌ Error 1: Docker Not Recognized
+'docker' is not recognized
+Reason:
+
+Docker not installed.
+
+Solution:
+
+Download Docker Desktop from:
+https://www.docker.com/products/docker-desktop/
+
+Install it.
+
+Restart system.
+
+Run:
+
+docker --version
+❌ Error 2: WSL Not Installed
+
+If Docker shows WSL error:
+
+Run in PowerShell (Admin):
+
+wsl --install
+
+Restart PC.
+
+❌ Error 3: Port Already Allocated
+Bind for 0.0.0.0:5000 failed
+Reason:
+
+Another container is running.
+
+Solution:
+
+Check running containers:
+
+docker ps
+
+Stop container:
+
+docker stop <container_id>
+📌 Important Points
+
+Dockerfile must not have extension.
+
+Flask must run on 0.0.0.0.
+
+Port mapping is necessary.
+
+Docker must be installed separately.
+
+Always build before running.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LAB MANUAL – NEXT PROCEDURE
+After Running Docker Container Successfully
+🎯 Aim of This Section
+
+To:
+
+Run container in background
+
+Manage Docker containers
+
+Push image to DockerHub
+
+Deploy the Docker image to a free cloud platform (Render)
+
+🔹 PART 1: Running Container in Background
+▶ STEP 1: Run in Detached Mode
+
+Instead of blocking terminal, run:
+
+docker run -d -p 5000:5000 house-price-app
+Explanation:
+
+-d → Run container in background
+
+Terminal remains free
+
+▶ STEP 2: Check Running Containers
+docker ps
+
+Output shows:
+
+Container ID
+
+Image name
+
+Running status
+
+Port mapping
+
+▶ STEP 3: Stop Container
+docker stop <container_id>
+
+Example:
+
+docker stop 123abc456
+▶ STEP 4: Remove Container (Optional Clean Up)
+docker rm <container_id>
+
+This removes stopped container.
+
+📌 Learning Point
+
+Image = Blueprint
+Container = Running Instance
+
+You can create multiple containers from one image.
+
+🔹 PART 2: Push Docker Image to DockerHub
+🎯 Aim
+
+To upload Docker image to public registry for cloud deployment.
+
+▶ STEP 1: Tag Image
+docker tag house-price-app yourusername/house-price-app
+
+Example:
+
+docker tag house-price-app venkateshmoodu/house-price-app
+▶ STEP 2: Login to DockerHub
+docker login
+
+Enter:
+
+Username
+
+Password
+
+If successful:
+
+Login Succeeded
+▶ STEP 3: Push Image
+docker push venkateshmoodu/house-price-app
+
+Image will upload to DockerHub.
+
+📌 Verification
+
+Visit:
+
+https://hub.docker.com
+
+Check repository → Image should appear.
+
+🔹 PART 3: Deploy Docker Image to Render (Free Cloud)
+🎯 Aim
+
+To deploy Docker image publicly using free cloud hosting.
+
+▶ STEP 1: Login to Render
+
+Visit:
+
+https://render.com
+
+Sign up using Gmail.
+
+▶ STEP 2: Create Web Service
+
+Click:
+
+New → Web Service
+
+Choose:
+
+Deploy from Docker image
+▶ STEP 3: Enter Image URL
+
+Enter:
+
+docker.io/venkateshmoodu/house-price-app:latest
+▶ STEP 4: Configure Settings
+
+Service Name:
+
+house-price-app
+
+Instance Type:
+
+Free
+
+Port:
+
+5000
+
+Add Environment Variable:
+
+Key:
+
+PORT
+
+Value:
+
+5000
+▶ STEP 5: Deploy
+
+Click:
+
+Deploy Web Service
+
+Wait 2–4 minutes.
+
+▶ STEP 6: Access Public URL
+
+Render will generate URL like:
+
+https://house-price-app.onrender.com
+
+Open it.
+
+🎉 Application is now live globally.
+
+🔹 PART 4: Logs and Debugging
+▶ Check Docker Logs
+docker logs <container_id>
+
+Used for:
+
+Checking errors
+
+Debugging crashes
+
+▶ Check Render Logs
+
+Render Dashboard → Service → Logs
+
+Used for:
+
+Startup issues
+
+Port errors
+
+Memory problems
+
+🧠 Final System Architecture
+Browser
+   ↓
+Render Cloud
+   ↓
+Docker Container
+   ↓
+Flask Application
+   ↓
+ML Model (.pkl)
+   ↓
+Prediction
+✅ Final Learning Outcome
+
+After completing this entire lab, students understand:
+
+ML model deployment workflow
+
+Flask application serving
+
+Docker containerization
+
+Image vs container
+
+DockerHub usage
+
+Free cloud deployment
+
+Debugging techniques
+
+Port mapping
+
+Container lifecycle
+
+🎓 Complete Workflow Summary
+Dataset
+   ↓
+Train Model
+   ↓
+Save Model (.pkl)
+   ↓
+Flask App
+   ↓
+Docker Image
+   ↓
+Docker Container
+   ↓
+DockerHub
+   ↓
+Render Cloud
+   ↓
+Public URL
+
+
+
+
+
+
+
+
+
